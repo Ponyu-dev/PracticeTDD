@@ -175,6 +175,40 @@ class StackTest {
         expected = CustomObject("2")
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun `test push push pop push pop pop fifo`() {
+        val stack = MyStack.FIFO<CustomObject>(maxCount = 3)
+        stack.push(item = CustomObject("1"))//pos 0
+        stack.push(item = CustomObject("2"))//pos 1
+        var actual = stack.pop()
+        var expected = CustomObject("1")
+        assertEquals(expected, actual)
+        stack.push(item = CustomObject("3"))
+        actual = stack.pop()
+        expected = CustomObject("2")
+        assertEquals(expected, actual)
+        actual = stack.pop()
+        expected = CustomObject("3")
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `test push push pop push pop pop lifo`() {
+        val stack = MyStack.LIFO<CustomObject>(maxCount = 3)
+        stack.push(item = CustomObject("1"))
+        stack.push(item = CustomObject("2"))
+        var actual = stack.pop()
+        var expected = CustomObject("2")
+        assertEquals(expected, actual)
+        stack.push(item = CustomObject("3"))
+        actual = stack.pop()
+        expected = CustomObject("3")
+        assertEquals(expected, actual)
+        actual = stack.pop()
+        expected = CustomObject("1")
+        assertEquals(expected, actual)
+    }
 }
 
 private data class CustomObject(val id: String)
